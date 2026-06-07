@@ -1,0 +1,287 @@
+:root {
+    --ncaa-orange: #FF6600;
+    --ncaa-blue: #003366;
+    --wood-floor: #f4d3a6;
+    --text-main: #222;
+    --white: #ffffff;
+    --light-gray: #f8f9fa;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--white);
+    margin: 0;
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+    background-color: var(--ncaa-blue);
+    color: var(--white);
+    padding: 4rem 10% 3rem 10%;
+    border-bottom: 8px solid var(--ncaa-orange);
+    position: relative;
+}
+
+.hero h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 3.5rem;
+    margin: 0;
+    line-height: 1;
+}
+
+.hero .course-info {
+    margin-top: 0.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+/* Content Sections */
+.content-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 5%;
+}
+
+section {
+    margin-bottom: 4rem;
+}
+
+h2 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 2.5rem;
+    color: var(--ncaa-blue);
+    border-bottom: 3px solid var(--ncaa-orange);
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.description-text {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+/* Predictor Tool Styling */
+.predictor-tool {
+    background: var(--light-gray);
+    padding: 2.5rem;
+    border-radius: 4px;
+    border-left: 10px solid var(--ncaa-blue);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    grid-column: span 2;
+    min-width: 0; /* Prevents flex items from overflowing */
+}
+
+/* Center the bottom two items (3-2 layout) */
+.input-group:nth-child(4) {
+    grid-column-start: 2;
+}
+
+.input-group:nth-child(5) {
+    grid-column-start: 4;
+}
+
+/* Responsive adjustments for the 3-2 layout */
+@media (max-width: 850px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    .input-group {
+        grid-column: span 1 !important;
+        grid-column-start: auto !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Tooltip Styling */
+.input-group .tooltip {
+    visibility: hidden;
+    background-color: var(--ncaa-blue);
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 0.8rem;
+    position: absolute;
+    z-index: 10;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    pointer-events: none;
+    text-transform: none;
+    font-weight: normal;
+}
+
+.input-group .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--ncaa-blue) transparent transparent transparent;
+}
+
+.input-group:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--ncaa-blue);
+}
+
+input {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--ncaa-orange);
+    box-shadow: 0 0 0 2px rgba(255,102,0,0.2);
+}
+
+.guess-box {
+    background: var(--white);
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+button {
+    padding: 0.8rem 2rem;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.4rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-action {
+    background-color: var(--ncaa-orange);
+    color: white;
+    width: 100%;
+}
+
+.btn-action:hover {
+    background-color: #d45500;
+}
+
+.btn-toggle {
+    background: transparent;
+    border: 2px solid var(--ncaa-blue);
+    color: var(--ncaa-blue);
+}
+
+.btn-toggle.active {
+    background: var(--ncaa-blue);
+    color: white;
+}
+
+/* Result Display */
+.results-container {
+    display: none;
+    margin-top: 2rem;
+    animation: slideDown 0.4s ease-out;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.res-card {
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.res-card.cinderella { background-color: #e8f5e9; border-color: #c8e6c9; color: #2e7d32; }
+.res-card.early-exit { background-color: #ffebee; border-color: #ffcdd2; color: #c62828; }
+
+.explanation {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #eee;
+    border-radius: 4px;
+}
+
+/* Report Section */
+.report-placeholder {
+    border: 2px dashed #ccc;
+    padding: 4rem;
+    text-align: center;
+    color: #888;
+    background: #fafafa;
+}
+
+/* Decorative Elements */
+.hoop-icon {
+    position: absolute;
+    right: 10%;
+    top: 85%;
+    transform: translateY(-50%);
+    opacity: 1;
+    pointer-events: none;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+footer {
+    background: #333;
+    color: #999;
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCAA Cinderella Anomaly Detection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hoop-icon">
+            <img src="image.png" alt="March Madness Clipart" style="width: 150px; height: auto;">
+        </div>
+        <h1>NCAA March Madness: Cinderella Anomaly Detection Classifier</h1>
+        <div class="course-info">DSC 148: Introduction to Data Mining | UC San Diego</div>
+        <div class="course-info">Instructor: Professor Jingbo Shang</div>
+        <div class="course-info">By: Janie Chan & Hannah Gonzalez</div>
+    </header>
+
+    <div class="content-wrapper">
+        
+        <section id="overview">
+            <h2>Project Overview</h2>
+            <div class="description-text">
+                This project focuses on the "Cinderella" phenomenon in the NCAA Division I Men's Basketball Tournament, otherwise known as March Madness. A Cinderella is a team seeded 10th or lower that advances to the Sweet Sixteen or further. Using historical regular-season data, we've created an anomaly detection classifier to identify teams that demonstrated the "Giant-Killer Footprint," a specific statistical profile that involves efficiency, three-point volume, and pace that deviate from typical early-exit mid-majors.
+            </div>
+        </section>
+
+        <section id="demo">
+            <h2>Working Demo: Interactive Predictor</h2>
+            <p>Input a team's regular-season metrics below to see if our model classifies them as a potential Cinderella anomaly.</p>
+            
+            <div class="predictor-tool">
+                <div id="form-content">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Tournament Seed</label>
+                            <input type="number" id="seed" value="12" min="1" max="16">
+                            <span class="tooltip">The team's rank in the bracket (1-16). Lower seeds are often the 'underdogs'.</span>
+                        </div>
+                        <div class="input-group">
+                            <label>Efficiency Rank (Pre-Tourney)</label>
+                            <input type="number" id="rank" value="45" min="1">
+                            <span class="tooltip">The team's overall statistical ranking before the tournament starts.</span>
+                        </div>
+                        <div class="input-group">
+                            <label>Pace (Possessions)</label>
+                            <input type="number" id="pace" value="67.2" step="0.1">
+                            <span class="tooltip">Average number of possessions per game; shows how fast the team plays.</span>
+                        </div>
+                        <div class="input-group">
+                            <label>3PT Rate (%)</label>
+                            <input type="number" id="threeRate" value="40.5" step="0.1">
+                            <span class="tooltip">The percentage of total shots that are three-pointers. High rates can lead to upsets.</span>
+                        </div>
+                        <div class="input-group">
+                            <label>3PT Percentage (%)</label>
+                            <input type="number" id="threePct" value="35.8" step="0.1">
+                            <span class="tooltip">The team's success rate on three-point shots. Accuracy is key for a Cinderella run.</span>
+                        </div>
+                    </div>
+
+                    <div class="guess-box">
+                        <label>Your Prediction</label>
+                        <div class="btn-group">
+                            <button class="btn-toggle" onclick="setGuess(0)" id="guess-0">Early Exit</button>
+                            <button class="btn-toggle" onclick="setGuess(1)" id="guess-1">Cinderella</button>
+                        </div>
+                    </div>
+
+                    <button class="btn-action" onclick="runAnalysis()">Analyze Team Metrics</button>
+                </div>
+
+                <div id="results" class="results-container">
+                    <div class="result-grid">
+                        <div id="user-result-card" class="res-card">
+                            <div style="font-size: 0.8rem; text-transform: uppercase;">Your Guess</div>
+                            <div id="user-val" style="font-size: 1.5rem; font-family: 'Bebas Neue';"></div>
+                        </div>
+                        <div id="ml-result-card" class="res-card">
+                            <div style="font-size: 0.8rem; text-transform: uppercase;">Model Output</div>
+                            <div id="ml-val" style="font-size: 1.5rem; font-family: 'Bebas Neue';"></div>
+                        </div>
+                    </div>
+                    <div id="explanation-text" class="explanation"></div>
+                    <button class="btn-toggle" style="width:100%; margin-top: 1rem;" onclick="resetDemo()">Reset Demo</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="report">
+            <h2>Project Report</h2>
+            <div class="report-placeholder">
+                <p>The full research report (PDF) will be available here.</p>
+                <a href="#" style="color: var(--ncaa-orange); font-weight: bold; text-decoration: none;">[ Download Report Placeholder ]</a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        &copy; 2026 UCSD DSC 148 NCAA Basketball ML Team
+    </footer>
+
+    <script>
+        let selection = null;
+
+        function setGuess(val) {
+            selection = val;
+            document.getElementById('guess-0').classList.toggle('active', val === 0);
+            document.getElementById('guess-1').classList.toggle('active', val === 1);
+        }
+
+        function runAnalysis() {
+            if (selection === null) {
+                alert("Please select your own prediction first!");
+                return;
+            }
+
+            const seed = parseFloat(document.getElementById('seed').value);
+            const rank = parseFloat(document.getElementById('rank').value);
+            const threeRate = parseFloat(document.getElementById('threeRate').value);
+            const threePct = parseFloat(document.getElementById('threePct').value);
+
+            // Simplified Model Heuristic
+            let score = 0;
+            if (seed >= 10) score += 1;
+            if (rank < seed * 5) score += 1;
+            if (threeRate > 38) score += 1;
+            if (threePct > 36) score += 1;
+
+            const isCinderella = score >= 3;
+            const mlPred = isCinderella ? 1 : 0;
+
+            // UI Updates
+            document.getElementById('form-content').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+
+            const userVal = selection === 1 ? 'Cinderella' : 'Early Exit';
+            const mlVal = mlPred === 1 ? 'Cinderella' : 'Early Exit';
+
+            document.getElementById('user-val').innerText = userVal;
+            document.getElementById('ml-val').innerText = mlVal;
+
+            document.getElementById('user-result-card').className = 'res-card ' + (selection === 1 ? 'cinderella' : 'early-exit');
+            document.getElementById('ml-result-card').className = 'res-card ' + (mlPred === 1 ? 'cinderella' : 'early-exit');
+
+            let explanation = "";
+            if (selection === mlPred) {
+                explanation = "<strong>Agreement:</strong> Your intuition aligns with our model's feature analysis.";
+            } else {
+                explanation = "<strong>Discrepancy:</strong> The model " + (mlPred === 1 ? "detected a statistical anomaly" : "didn't see enough of a 'Giant-Killer' profile") + " that differed from your guess.";
+            }
+            
+            document.getElementById('explanation-text').innerHTML = explanation;
+        }
+
+        function resetDemo() {
+            document.getElementById('form-content').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            selection = null;
+            document.getElementById('guess-0').classList.remove('active');
+            document.getElementById('guess-1').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
