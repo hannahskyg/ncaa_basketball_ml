@@ -760,10 +760,7 @@ tbody tr:last-child td {
   text-align: justify;
   max-width: 800px;
   width: 100%;
-  background: #f8fafc;
-  padding: 1.25rem;
-  border-radius: 6px;
-  border-left: 3px solid var(--ncaa-blue);
+  margin-top: 1.25rem;
 }
 
 .plot-explanation strong {
