@@ -1,171 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCAA Cinderella Anomaly Detection</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCAA March Madness: Cinderella Anomaly Detection</title>
+  <!-- SEO Tags -->
+  <meta name="description" content="An interactive machine learning dashboard for predicting NCAA March Madness Cinderella anomalies using advanced models (Logistic Regression, Random Forest, Gradient Boosting, PCA) trained on historical tournament data.">
+  <meta name="author" content="Janie Chan & Hannah Gonzalez">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="hero">
-        <div class="hoop-icon">
-            <img src="image.png" alt="March Madness Clipart" style="width: 150px; height: auto;">
+  <!-- Premium Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-logo-group">
+        <div class="hoop-art">🏀</div>
+        <div>
+          <h1>NCAA March Madness</h1>
+          <h2>Cinderella Anomaly Detection Classifier</h2>
         </div>
-        <h1>NCAA March Madness: Cinderella Anomaly Detection Classifier</h1>
-        <div class="course-info">DSC 148: Introduction to Data Mining | UC San Diego</div>
-        <div class="course-info">Instructor: Professor Jingbo Shang</div>
-        <div class="course-info">By: Janie Chan & Hannah Gonzalez</div>
-    </header>
+      </div>
+      <div class="meta-badge-grid">
+        <div class="meta-badge">
+          <span class="meta-label">Course</span>
+          <span class="meta-val">UCSD DSC 148</span>
+        </div>
+        <div class="meta-badge">
+          <span class="meta-label">Instructor</span>
+          <span class="meta-val">Prof. Jingbo Shang</span>
+        </div>
+        <div class="meta-badge">
+          <span class="meta-label">By</span>
+          <span class="meta-val">Chan & Gonzalez</span>
+        </div>
+      </div>
+    </div>
+  </header>
 
-    <div class="content-wrapper">
-        
-        <section id="overview">
-            <h2>Project Overview</h2>
-            <div class="description-text">
-                This project focuses on the "Cinderella" phenomenon in the NCAA Division I Men's Basketball Tournament, otherwise known as March Madness. A Cinderella is a team seeded 10th or lower that advances to the Sweet Sixteen or further. Using historical regular-season data, we've created an anomaly detection classifier to identify teams that demonstrated the "Giant-Killer Footprint," a specific statistical profile that involves efficiency, three-point volume, and pace that deviate from typical early-exit mid-majors.
-            </div>
-        </section>
+  <main class="main-content">
+    <!-- Project Overview -->
+    <section class="card glass-panel intro-section" id="overview">
+      <h3>Project Overview</h3>
+      <p>
+        In NCAA tournament lore, a <strong>Cinderella</strong> is a low-seeded team (seed 11–16) that defies odds to reach the <strong>Sweet 16</strong> or further (requiring &ge;2 wins). Historically, these upsets are treated as random chaos. We frame Cinderella prediction as a <strong>binary anomaly-detection problem</strong>, testing the hypothesis that team play-style profiles (tempo, three-point volume, effective FG%) carry predictive signals beyond public KenPom efficiency rankings.
+      </p>
+      <p>
+        To keep evaluation grounded, we enforce a strict <strong>chronological split</strong> (2003–2021 train, 2022–2026 test), apply <strong>SMOTE</strong> and scaling <em>strictly</em> inside CV folds to prevent data leakage, and establish a <strong>KenPom-only baseline</strong>.
+      </p>
+    </section>
 
-        <section id="demo">
-            <h2>Working Demo: Interactive Predictor</h2>
-            <p>Input a team's regular-season metrics below to see if our model classifies them as a potential Cinderella anomaly.</p>
-            
-            <div class="predictor-tool">
-                <div id="form-content">
-                    <div class="form-grid">
-                        <div class="input-group">
-                            <label>Tournament Seed</label>
-                            <input type="number" id="seed" value="12" min="1" max="16">
-                            <span class="tooltip">The team's rank in the bracket (1-16). Lower seeds are often the 'underdogs'.</span>
-                        </div>
-                        <div class="input-group">
-                            <label>Efficiency Rank (Pre-Tourney)</label>
-                            <input type="number" id="rank" value="45" min="1">
-                            <span class="tooltip">The team's overall statistical ranking before the tournament starts.</span>
-                        </div>
-                        <div class="input-group">
-                            <label>Pace (Possessions)</label>
-                            <input type="number" id="pace" value="67.2" step="0.1">
-                            <span class="tooltip">Average number of possessions per game; shows how fast the team plays.</span>
-                        </div>
-                        <div class="input-group">
-                            <label>3PT Rate (%)</label>
-                            <input type="number" id="threeRate" value="40.5" step="0.1">
-                            <span class="tooltip">The percentage of total shots that are three-pointers. High rates can lead to upsets.</span>
-                        </div>
-                        <div class="input-group">
-                            <label>3PT Percentage (%)</label>
-                            <input type="number" id="threePct" value="35.8" step="0.1">
-                            <span class="tooltip">The team's success rate on three-point shots. Accuracy is key for a Cinderella run.</span>
-                        </div>
-                    </div>
-
-                    <div class="guess-box">
-                        <label>Your Prediction</label>
-                        <div class="btn-group">
-                            <button class="btn-toggle" onclick="setGuess(0)" id="guess-0">Early Exit</button>
-                            <button class="btn-toggle" onclick="setGuess(1)" id="guess-1">Cinderella</button>
-                        </div>
-                    </div>
-
-                    <button class="btn-action" onclick="runAnalysis()">Analyze Team Metrics</button>
-                </div>
-
-                <div id="results" class="results-container">
-                    <div class="result-grid">
-                        <div id="user-result-card" class="res-card">
-                            <div style="font-size: 0.8rem; text-transform: uppercase;">Your Guess</div>
-                            <div id="user-val" style="font-size: 1.5rem; font-family: 'Bebas Neue';"></div>
-                        </div>
-                        <div id="ml-result-card" class="res-card">
-                            <div style="font-size: 0.8rem; text-transform: uppercase;">Model Output</div>
-                            <div id="ml-val" style="font-size: 1.5rem; font-family: 'Bebas Neue';"></div>
-                        </div>
-                    </div>
-                    <div id="explanation-text" class="explanation"></div>
-                    <button class="btn-toggle" style="width:100%; margin-top: 1rem;" onclick="resetDemo()">Reset Demo</button>
-                </div>
-            </div>
-        </section>
-
-        <section id="report">
-            <h2>Project Report</h2>
-            <div class="report-placeholder">
-                <p>The full research report (PDF) will be available here.</p>
-                <a href="#" style="color: var(--ncaa-orange); font-weight: bold; text-decoration: none;">[ Download Report Placeholder ]</a>
-            </div>
-        </section>
-
+    <!-- Interactive Workspace Tabs -->
+    <div class="workspace-tabs-wrapper">
+      <button class="tab-btn active" id="tab-sandbox">
+        <span class="tab-icon">⚙️</span> Interactive Sandbox
+      </button>
+      <button class="tab-btn" id="tab-challenge">
+        <span class="tab-icon">🎮</span> Challenge Game: Beat the Model
+      </button>
     </div>
 
-    <footer>
-        &copy; 2026 UCSD DSC 148 NCAA Basketball ML Team
-    </footer>
+    <!-- 1. Interactive Sandbox Workspace -->
+    <section id="sandbox-workspace" class="sandbox-grid">
+      <!-- Left Column: Sliders -->
+      <div class="card glass-panel input-panel">
+        <div class="panel-header">
+          <h3>Team Metric Adjuster</h3>
+          <p>Tweak the team's regular-season statistical profile and observe the predictions change in real-time.</p>
+        </div>
+        <div id="sliders-grid" class="sliders-list">
+          <!-- Dynamically populated sliders -->
+        </div>
+      </div>
 
-    <script>
-        let selection = null;
+      <!-- Right Column: Real-time Predictions & PCA -->
+      <div class="prediction-side">
+        <!-- Live ML Outputs -->
+        <div class="card glass-panel output-panel">
+          <div class="panel-header">
+            <h3>Model Probabilities</h3>
+            <p>Evaluating 5 distinct classifiers simultaneously based on adjusted metrics.</p>
+          </div>
+          <div id="predictions-list" class="predictions-stack">
+            <!-- Dynamically populated prediction bars -->
+          </div>
+        </div>
 
-        function setGuess(val) {
-            selection = val;
-            document.getElementById('guess-0').classList.toggle('active', val === 0);
-            document.getElementById('guess-1').classList.toggle('active', val === 1);
-        }
+        <!-- Live Latent Factors -->
+        <div class="card glass-panel pca-panel">
+          <div class="panel-header">
+            <h3>Calculated Latent Style Factors</h3>
+            <p>Projecting play-style metrics into 3 principal components (PCA) in real-time.</p>
+          </div>
+          <div class="pca-grid">
+            <div class="pca-card">
+              <div class="pca-meta">
+                <span class="pca-title">PC1: Net Strength</span>
+                <span class="pca-val" id="pca-pc1-val">0.00</span>
+              </div>
+              <p class="pca-desc" id="pca-pc1-desc">Calculated component...</p>
+            </div>
+            <div class="pca-card">
+              <div class="pca-meta">
+                <span class="pca-title">PC2: Tempo & Perimeter Reliance</span>
+                <span class="pca-val" id="pca-pc2-val">0.00</span>
+              </div>
+              <p class="pca-desc" id="pca-pc2-desc">Calculated component...</p>
+            </div>
+            <div class="pca-card">
+              <div class="pca-meta">
+                <span class="pca-title">PC3: Possession Security</span>
+                <span class="pca-val" id="pca-pc3-val">0.00</span>
+              </div>
+              <p class="pca-desc" id="pca-pc3-desc">Calculated component...</p>
+            </div>
+          </div>
+          <p class="pca-footer-note">
+            PCA is fitted on the training set to resolve high dimensionality.
+          </p>
+        </div>
+      </div>
+    </section>
 
-        function runAnalysis() {
-            if (selection === null) {
-                alert("Please select your own prediction first!");
-                return;
-            }
+    <!-- 2. Challenge Mode Workspace (Hidden by default) -->
+    <section id="challenge-workspace" class="challenge-container" style="display: none;">
+      <div class="challenge-split">
+        <!-- Game Play area -->
+        <div class="card glass-panel challenge-game-card">
+          <div class="panel-header">
+            <h3>Can You Predict the Cinderella?</h3>
+            <p>Below are the actual regular season metrics of a real tournament team (Seed 11–16) drawn from the 2022–2026 test years. Make your guess, check the models, and reveal the truth!</p>
+          </div>
+          
+          <div class="mystery-box-badge">❓ Mystery Team Case</div>
+          
+          <div id="challenge-stats-grid" class="challenge-stats-grid">
+            <!-- Dynamically populated -->
+          </div>
 
-            const seed = parseFloat(document.getElementById('seed').value);
-            const rank = parseFloat(document.getElementById('rank').value);
-            const threeRate = parseFloat(document.getElementById('threeRate').value);
-            const threePct = parseFloat(document.getElementById('threePct').value);
+          <div class="challenge-actions-group">
+            <div class="user-guess-area">
+              <span class="prompt-text">Your Guess:</span>
+              <div class="btn-group">
+                <button class="btn-toggle btn-guess" id="guess-exit-btn">Early Exit</button>
+                <button class="btn-toggle btn-guess" id="guess-cindy-btn">Cinderella</button>
+              </div>
+            </div>
+            <div class="game-play-btns">
+              <button class="btn-action" id="challenge-reveal-btn" disabled>Reveal Outcome</button>
+              <button class="btn-secondary" id="challenge-next-btn">Next Team</button>
+            </div>
+          </div>
 
-            // Simplified Model Heuristic
-            let score = 0;
-            if (seed >= 10) score += 1;
-            if (rank < seed * 5) score += 1;
-            if (threeRate > 38) score += 1;
-            if (threePct > 36) score += 1;
-
-            const isCinderella = score >= 3;
-            const mlPred = isCinderella ? 1 : 0;
-
-            // UI Updates
-            document.getElementById('form-content').style.display = 'none';
-            document.getElementById('results').style.display = 'block';
-
-            const userVal = selection === 1 ? 'Cinderella' : 'Early Exit';
-            const mlVal = mlPred === 1 ? 'Cinderella' : 'Early Exit';
-
-            document.getElementById('user-val').innerText = userVal;
-            document.getElementById('ml-val').innerText = mlVal;
-
-            document.getElementById('user-result-card').className = 'res-card ' + (selection === 1 ? 'cinderella' : 'early-exit');
-            document.getElementById('ml-result-card').className = 'res-card ' + (mlPred === 1 ? 'cinderella' : 'early-exit');
-
-            let explanation = "";
-            if (selection === mlPred) {
-                explanation = "<strong>Agreement:</strong> Your intuition aligns with our model's feature analysis.";
-            } else {
-                explanation = "<strong>Discrepancy:</strong> The model " + (mlPred === 1 ? "detected a statistical anomaly" : "didn't see enough of a 'Giant-Killer' profile") + " that differed from your guess.";
-            }
+          <!-- Reveal Area -->
+          <div id="challenge-outcome-wrapper" style="display: none; margin-top: 2rem;">
+            <div id="challenge-outcome-card">
+              <!-- Dynamically populated -->
+            </div>
             
-            document.getElementById('explanation-text').innerHTML = explanation;
-        }
+            <div class="model-comparison-table-wrapper" style="margin-top: 1.5rem;">
+              <h5>How the Models Classified this Team:</h5>
+              <table class="model-comparison-table">
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Model Probability</th>
+                    <th>Model Prediction</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody id="challenge-details-body">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
-        function resetDemo() {
-            document.getElementById('form-content').style.display = 'block';
-            document.getElementById('results').style.display = 'none';
-            selection = null;
-            document.getElementById('guess-0').classList.remove('active');
-            document.getElementById('guess-1').classList.remove('active');
-        }
-    </script>
+        <!-- Scoreboard area -->
+        <div class="card glass-panel challenge-score-card">
+          <h3>Game Scoreboard</h3>
+          <p>Accuracy on held-out test data (2022–2026)</p>
+          <div class="scoreboard-stats">
+            <div class="score-row">
+              <span>👤 Your Score:</span>
+              <strong id="score-user" class="glow-text">0/0</strong>
+            </div>
+            <div class="score-row">
+              <span>🌲 Random Forest (Tuned):</span>
+              <strong id="score-rf">0/0</strong>
+            </div>
+            <div class="score-row">
+              <span>⚡ Gradient Boosting:</span>
+              <strong id="score-gbm">0/0</strong>
+            </div>
+            <div class="score-row">
+              <span>📊 KenPom Baseline:</span>
+              <strong id="score-baseline">0/0</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Analytics, Model Details, and Plots Section -->
+    <section class="card glass-panel analytics-section" id="analytics">
+      <h3>Model Performance & Diagnostics</h3>
+      <p>
+        The classifiers are evaluated on held-out tournament seasons (2022–2026). Below is the comprehensive performance comparison against the baseline and diagnostic charts proving generalization.
+      </p>
+
+      <!-- Comparative Metrics Table -->
+      <div class="table-wrapper">
+        <table class="metrics-table">
+          <thead>
+            <tr>
+              <th>Model Name</th>
+              <th>Test F1-Score</th>
+              <th>Test Precision</th>
+              <th>Test Recall</th>
+              <th>Optimized Decision Threshold</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Baseline (KenPom Rank Only)</strong></td>
+              <td>0.0870</td>
+              <td>0.0667</td>
+              <td>0.1250</td>
+              <td>0.717</td>
+            </tr>
+            <tr>
+              <td><strong>Logistic Regression (Full features)</strong></td>
+              <td>0.2128</td>
+              <td>0.1282</td>
+              <td>0.6250</td>
+              <td>0.597</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>PCA + Logistic Regression</strong> ⭐</td>
+              <td><strong>0.2500</strong></td>
+              <td><strong>0.1562</strong></td>
+              <td><strong>0.6250</strong></td>
+              <td><strong>0.696</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Gradient Boosting Classifier</strong></td>
+              <td>0.2381</td>
+              <td>0.1471</td>
+              <td>0.6250</td>
+              <td>0.442</td>
+            </tr>
+            <tr>
+              <td><strong>Random Forest Classifier (Tuned)</strong></td>
+              <td>0.1786</td>
+              <td>0.1042</td>
+              <td>0.6250</td>
+              <td>0.356</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="highlight-note">
+        ⭐ The <strong>PCA + Logistic Regression</strong> model achieves the highest F1-score of <strong>0.2500</strong> on the test set, representing a <strong>+187.3% relative improvement</strong> over the KenPom baseline (F1 = 0.0870). It successfully flags 5 out of the 8 historical Cinderella runs (62.5% recall) while maintaining much better precision and keeping false positives low.
+      </div>
+
+      <!-- Diagnostic Charts Grid -->
+      <h4 class="section-subtitle">Diagnostic Visualizations</h4>
+      <div class="plots-carousel">
+        <div class="plot-card">
+          <h5>1. Decision Threshold Sensitivity</h5>
+          <img src="threshold_sensitivity.png" alt="Decision Threshold Sensitivity Plot" class="diagnostic-img">
+          <p class="plot-caption">Sweeping probability threshold on Out-Of-Fold (OOF) training data to maximize F1-score without test set leakage. Optimal threshold found at 0.356.</p>
+        </div>
+        <div class="plot-card">
+          <h5>2. Parameter Sensitivity (Max Depth)</h5>
+          <img src="parameter_sensitivity_depth.png" alt="Parameter Sensitivity Plot" class="diagnostic-img">
+          <p class="plot-caption">Evaluating Grouped CV F1 vs. Test F1 across tree depths. Peak performance at max depth = 3 restricts tree capacity, preventing SMOTE overfitting.</p>
+        </div>
+        <div class="plot-card">
+          <h5>3. Test Set Confusion Matrix</h5>
+          <img src="confusion_matrix_final_model.png" alt="Confusion Matrix Plot" class="diagnostic-img">
+          <p class="plot-caption">Confusion matrix on 2022–2026 test years. Out of 138 low-seeded seasons, the model correctly isolates 5 of the 8 extremely rare Cinderella runs.</p>
+        </div>
+      </div>
+
+      <!-- PCA Latent Factor Loadings -->
+      <h4 class="section-subtitle">PCA Play-Style Loadings (Latent Factor Matrix)</h4>
+      <p>
+        To address high-dimensionality, we apply PCA to the 13 regular-season play-style features. Below are the coefficients (loadings) for the first 3 Principal Components:
+      </p>
+      <div class="table-wrapper">
+        <table class="pca-loadings-table">
+          <thead>
+            <tr>
+              <th>Feature Name</th>
+              <th>PC1 (Overall Quality)</th>
+              <th>PC2 (Pace & Perimeter)</th>
+              <th>PC3 (Possession security)</th>
+            </tr>
+          </thead>
+          <tbody id="pca-loadings-body">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Interactive Case Studies -->
+      <h4 class="section-subtitle">Interactive Case Studies</h4>
+      <p>Click a team to load its actual regular-season metrics into the Sandbox Adjuster above and examine what made them anomalies:</p>
+      <div id="case-studies-list" class="case-studies-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- Reproducibility & Deployment guide -->
+    <section class="card glass-panel admin-section" id="admin">
+      <h3>Reproducibility & Deployment Instructions</h3>
+      <div class="admin-grid">
+        <div>
+          <h4>1. How to Reproduce Locally</h4>
+          <p>To train the models and regenerate all figures/weights, execute the following commands in the project directory:</p>
+          <pre><code># Install dependencies
+pip install -r requirements.txt
+
+# Run unified training pipeline
+python train_models_all.py</code></pre>
+          <p>This will update the javascript weights file (<code>model-data.js</code>) and recreate the sensitivity plots.</p>
+        </div>
+        <div>
+          <h4>2. How to Deploy to Vercel</h4>
+          <p>This application is 100% serverless and static. To deploy it to Vercel:</p>
+          <ol>
+            <li>Commit all files (including <code>model-data.js</code> and png plots) to a GitHub repository.</li>
+            <li>Go to <a href="https://vercel.com" target="_blank">Vercel</a>, click "Add New Project", and select your repo.</li>
+            <li>Leave all build settings at their defaults and click <strong>Deploy</strong>.</li>
+            <li>Done! Vercel will serve it as a lightning-fast static site.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>&copy; 2026 UCSD DSC 148 NCAA Basketball Machine Learning Team</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="model-data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
