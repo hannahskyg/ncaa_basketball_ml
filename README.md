@@ -1,7 +1,8 @@
 # NCAA March Madness Cinderella Anomaly Detection
 
 ### 🔗 Live Interactive App: [ncaa-basketball-ml-cinderella.vercel.app](https://ncaa-basketball-ml-cinderella.vercel.app)
-
+### By: Hannah Gonzalez and Janie Chan
+Originally made for DSC148 class but then revamped for a better model and working demo after essential feedback.
 ---
 
 ## 1. Project Overview
