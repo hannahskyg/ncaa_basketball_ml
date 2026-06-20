@@ -17,8 +17,8 @@ from sklearn.decomposition import PCA
 from sklearn.compose import ColumnTransformer
 
 ROOT = Path(__file__).resolve().parent
-DATA_DIR = ROOT / "march-machine-learning-mania-2026"
-OUTPUT_PATH = ROOT / "model-data.js"
+DATA_DIR = ROOT.parent / "march-machine-learning-mania-2026"
+OUTPUT_PATH = ROOT.parent / "demo" / "model-data.js"
 SEED = 42
 
 def extract_seed(value: str) -> int:
@@ -453,7 +453,7 @@ def main() -> None:
     ax.legend(loc="lower left")
     ax.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig(ROOT / "threshold_sensitivity.png", dpi=150)
+    plt.savefig(ROOT.parent / "demo" / "threshold_sensitivity.png", dpi=150)
     plt.close()
 
     # 2. Hyperparameter Sensitivity: F1-score vs Tree Depth for Random Forest
@@ -482,7 +482,7 @@ def main() -> None:
     ax.legend()
     ax.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig(ROOT / "parameter_sensitivity_depth.png", dpi=150)
+    plt.savefig(ROOT.parent / "demo" / "parameter_sensitivity_depth.png", dpi=150)
     plt.close()
 
     # 3. Confusion Matrix Plot
@@ -495,7 +495,7 @@ def main() -> None:
     ax.set_ylabel("True Label")
     ax.set_title("Confusion Matrix (Tuned Random Forest Test Set)", fontsize=12, fontweight="bold")
     plt.tight_layout()
-    plt.savefig(ROOT / "confusion_matrix_final_model.png", dpi=150)
+    plt.savefig(ROOT.parent / "demo" / "confusion_matrix_final_model.png", dpi=150)
     plt.close()
 
     # --- CASE STUDY ANALYSIS ---
