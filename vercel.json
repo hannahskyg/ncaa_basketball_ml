@@ -1,6 +1,15 @@
 {
   "version": 2,
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/demo/index.html" },
+    { "source": "/style.css", "destination": "/demo/style.css" },
+    { "source": "/app.js", "destination": "/demo/app.js" },
+    { "source": "/model-data.js", "destination": "/demo/model-data.js" },
+    { "source": "/threshold_sensitivity.png", "destination": "/demo/threshold_sensitivity.png" },
+    { "source": "/parameter_sensitivity_depth.png", "destination": "/demo/parameter_sensitivity_depth.png" },
+    { "source": "/confusion_matrix_final_model.png", "destination": "/demo/confusion_matrix_final_model.png" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
