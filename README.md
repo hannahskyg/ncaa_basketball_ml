@@ -2,7 +2,7 @@
 
 ### 🔗 Live Interactive App: [ncaa-basketball-ml-cinderella.vercel.app](https://ncaa-basketball-ml-cinderella.vercel.app)
 ### By: Hannah Gonzalez and Janie Chan
-#### Originally made for DSC148 class but then revamped for a better model and working demo after essential feedback.
+#### Originally made for DSC148 class, but then revamped for a better model and working demo after essential feedback. Interested due to Hannah's and Janie's love for basketball. 
 ---
 
 ## 1. Project Overview
