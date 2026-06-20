@@ -1,19 +1,19 @@
-/* Premium Design System for NCAA Cinderella Classifier */
+/* Premium Light Design System for NCAA Cinderella Classifier */
 :root {
-  --bg-main: #070a13;
-  --bg-card: rgba(16, 24, 48, 0.7);
-  --bg-card-hover: rgba(24, 36, 68, 0.85);
-  --border-color: rgba(255, 255, 255, 0.08);
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --border-color: #e2e8f0;
   --ncaa-orange: #ff5722;
-  --ncaa-orange-glow: rgba(255, 87, 34, 0.35);
-  --accent-cyan: #00b4d8;
-  --accent-cyan-glow: rgba(0, 180, 216, 0.25);
-  --text-main: #f1f5f9;
-  --text-muted: #94a3b8;
-  --color-cindy: #4caf50;
-  --color-cindy-glow: rgba(76, 175, 80, 0.15);
-  --color-exit: #f44336;
-  --color-exit-glow: rgba(244, 67, 54, 0.15);
+  --ncaa-orange-glow: rgba(255, 87, 34, 0.15);
+  --ncaa-blue: #003366;
+  --ncaa-blue-glow: rgba(0, 51, 102, 0.1);
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --color-cindy: #2e7d32;
+  --color-cindy-glow: #e8f5e9;
+  --color-exit: #c62828;
+  --color-exit-glow: #ffebee;
   --font-body: 'Outfit', sans-serif;
   --font-display: 'Bebas Neue', sans-serif;
 }
@@ -29,97 +29,49 @@ body {
   background-color: var(--bg-main);
   color: var(--text-main);
   line-height: 1.6;
-  background-image: radial-gradient(circle at 10% 20%, rgba(255, 87, 34, 0.05) 0%, transparent 40%),
-                    radial-gradient(circle at 90% 80%, rgba(0, 180, 216, 0.05) 0%, transparent 40%);
+  background-image: radial-gradient(circle at 10% 20%, rgba(255, 87, 34, 0.03) 0%, transparent 45%),
+                    radial-gradient(circle at 90% 80%, rgba(0, 51, 102, 0.03) 0%, transparent 45%);
   background-attachment: fixed;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
 }
 
 /* Header Styling */
 .app-header {
-  background-color: rgba(7, 10, 19, 0.8);
-  backdrop-filter: blur(12px);
+  background-color: #ffffff;
   border-bottom: 1px solid var(--border-color);
-  padding: 1.5rem 5%;
+  padding: 1.75rem 5%;
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
 .header-container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.header-logo-group {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.hoop-art {
-  font-size: 2.5rem;
-  filter: drop-shadow(0 0 10px var(--ncaa-orange-glow));
-  animation: bounce 2s infinite ease-in-out;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
 }
 
 .app-header h1 {
   font-family: var(--font-display);
-  font-size: 2.2rem;
-  line-height: 1;
-  letter-spacing: 1px;
-  color: var(--text-main);
+  font-size: 2.4rem;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+  color: var(--ncaa-blue);
 }
 
-.app-header h2 {
-  font-size: 0.95rem;
-  color: var(--ncaa-orange);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.meta-badge-grid {
-  display: flex;
-  gap: 1rem;
-}
-
-.meta-badge {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.meta-label {
-  font-size: 0.7rem;
+.authors-line {
+  font-size: 1rem;
   color: var(--text-muted);
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.meta-val {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--accent-cyan);
+  font-weight: 500;
+  margin-top: 0.25rem;
 }
 
 /* Layout container */
 .main-content {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 2rem auto;
   padding: 0 1.5rem;
 }
@@ -131,18 +83,18 @@ body {
   border-radius: 12px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s;
 }
 
-.glass-panel {
-  backdrop-filter: blur(16px);
-  transition: transform 0.2s, border-color 0.2s;
+.card:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06);
 }
 
 .intro-section p {
   margin-bottom: 1rem;
   font-size: 1.05rem;
-  color: #cbd5e1;
+  color: #334155;
 }
 
 .intro-section strong {
@@ -152,10 +104,10 @@ body {
 /* Tabs switcher */
 .workspace-tabs-wrapper {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   margin-bottom: 2rem;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
 }
 
 .tab-btn {
@@ -163,32 +115,31 @@ body {
   border: none;
   color: var(--text-muted);
   font-family: var(--font-body);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.25rem;
   cursor: pointer;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.3s;
+  border-radius: 6px 6px 0 0;
+  transition: all 0.2s;
+  position: relative;
+  top: 1px;
 }
 
 .tab-btn:hover {
-  color: var(--text-main);
-  background: rgba(255, 255, 255, 0.03);
+  color: var(--ncaa-blue);
+  background: rgba(0, 51, 102, 0.03);
 }
 
 .tab-btn.active {
   color: var(--ncaa-orange);
-  background: rgba(255, 87, 34, 0.08);
-  box-shadow: inset 0 0 12px rgba(255, 87, 34, 0.05);
+  border-bottom: 3px solid var(--ncaa-orange);
+  background: transparent;
 }
 
 /* Sandbox Mode Grid */
 .sandbox-grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1.25fr 0.75fr;
   gap: 2rem;
 }
 
@@ -205,13 +156,13 @@ body {
 }
 
 .panel-header h3 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  color: var(--text-main);
+  color: var(--ncaa-blue);
 }
 
 .panel-header p {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
 }
 
@@ -223,18 +174,18 @@ body {
 }
 
 .slider-section-box {
-  background: rgba(255, 255, 255, 0.015);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
   padding: 1.25rem;
   border-radius: 8px;
 }
 
 .slider-section-box h4 {
-  color: var(--accent-cyan);
-  font-size: 0.95rem;
+  color: var(--ncaa-blue);
+  font-size: 0.9rem;
   margin-bottom: 1rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .slider-control-card {
@@ -255,25 +206,25 @@ body {
 .slider-label {
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--text-main);
+  color: #334155;
   display: flex;
   align-items: center;
   gap: 0.4rem;
 }
 
 .tooltip-icon {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-muted);
-  width: 16px;
-  height: 16px;
+  background: #e2e8f0;
+  color: #64748b;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: help;
   font-weight: bold;
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
 
 .tooltip-icon:hover {
@@ -293,14 +244,14 @@ input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
   height: 6px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #e2e8f0;
   border-radius: 3px;
   outline: none;
   transition: background 0.3s;
 }
 
 input[type="range"]:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: #cbd5e1;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -310,12 +261,12 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
   background: var(--ncaa-orange);
   cursor: pointer;
-  box-shadow: 0 0 8px var(--ncaa-orange-glow);
+  box-shadow: 0 0 6px var(--ncaa-orange-glow);
   transition: transform 0.1s;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
+  transform: scale(1.25);
 }
 
 /* Model probability stacks */
@@ -326,16 +277,16 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 .model-row-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: #f8fafc;
   border: 1px solid var(--border-color);
   padding: 1rem;
   border-radius: 8px;
-  transition: border-color 0.3s, background 0.3s;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .model-row-card.model-cindy-active {
-  border-color: rgba(76, 175, 80, 0.3);
-  background: rgba(76, 175, 80, 0.03);
+  border-color: rgba(76, 175, 80, 0.4);
+  background: #f1f9f1;
 }
 
 .model-row-meta {
@@ -347,12 +298,13 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 .model-name {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  color: var(--ncaa-blue);
 }
 
 .model-badge {
-  font-size: 0.75rem;
-  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.45rem;
   border-radius: 4px;
   font-weight: 600;
   text-transform: uppercase;
@@ -360,14 +312,14 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 .badge-cindy {
   background: var(--color-cindy-glow);
-  color: #81c784;
-  border: 1px solid rgba(76, 175, 80, 0.3);
+  color: var(--color-cindy);
+  border: 1px solid rgba(76, 175, 80, 0.2);
 }
 
 .badge-exit {
   background: var(--color-exit-glow);
-  color: #e57373;
-  border: 1px solid rgba(244, 67, 54, 0.3);
+  color: var(--color-exit);
+  border: 1px solid rgba(244, 67, 54, 0.2);
 }
 
 .progress-bar-wrapper {
@@ -377,26 +329,25 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 .progress-bar-bg {
-  background: rgba(255, 255, 255, 0.05);
-  height: 12px;
-  border-radius: 6px;
+  background: #e2e8f0;
+  height: 10px;
+  border-radius: 5px;
   position: relative;
   overflow: hidden;
 }
 
 .progress-bar-fill {
   height: 100%;
-  border-radius: 6px;
+  border-radius: 5px;
   transition: width 0.4s ease-out;
 }
 
 .fill-cindy {
   background: linear-gradient(90deg, #4caf50, #81c784);
-  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
 }
 
 .fill-exit {
-  background: linear-gradient(90deg, #2196f3, #00b4d8);
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
 }
 
 .threshold-line {
@@ -404,8 +355,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
   top: 0;
   width: 2px;
   height: 100%;
-  background: #ffeb3b;
-  box-shadow: 0 0 5px #ffeb3b;
+  background: #d97706;
   z-index: 2;
 }
 
@@ -424,7 +374,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 .pca-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: #f8fafc;
   border: 1px solid var(--border-color);
   padding: 0.8rem 1rem;
   border-radius: 6px;
@@ -446,12 +396,12 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .pca-val {
   font-family: var(--font-display);
   font-size: 1.25rem;
-  color: var(--accent-cyan);
+  color: var(--ncaa-blue);
 }
 
 .pca-desc {
   font-size: 0.8rem;
-  color: #cbd5e1;
+  color: #334155;
 }
 
 .pca-footer-note {
@@ -464,7 +414,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 /* Challenge Mode */
 .challenge-split {
   display: grid;
-  grid-template-columns: 1.4fr 0.6fr;
+  grid-template-columns: 1.35fr 0.65fr;
   gap: 2rem;
 }
 
@@ -475,14 +425,14 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 .mystery-box-badge {
-  background: rgba(0, 180, 216, 0.08);
-  border: 1px solid var(--accent-cyan-glow);
-  color: var(--accent-cyan);
+  background: rgba(0, 51, 102, 0.04);
+  border: 1px solid var(--ncaa-blue-glow);
+  color: var(--ncaa-blue);
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-weight: 600;
   text-align: center;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   margin-bottom: 1.5rem;
 }
 
@@ -494,7 +444,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 .challenge-stat-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: #f8fafc;
   border: 1px solid var(--border-color);
   padding: 0.8rem;
   border-radius: 6px;
@@ -510,7 +460,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .challenge-stat-val {
   font-family: var(--font-display);
   font-size: 1.4rem;
-  color: var(--text-main);
+  color: var(--ncaa-blue);
   margin-top: 0.2rem;
 }
 
@@ -533,6 +483,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .prompt-text {
   font-weight: 600;
   font-size: 0.95rem;
+  color: var(--ncaa-blue);
 }
 
 .btn-group {
@@ -547,14 +498,14 @@ button.btn-toggle {
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 500;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.25rem;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 button.btn-toggle:hover {
-  color: var(--text-main);
+  color: var(--ncaa-blue);
   border-color: var(--text-muted);
 }
 
@@ -562,7 +513,6 @@ button.btn-toggle.active {
   background: var(--ncaa-orange);
   color: white;
   border-color: var(--ncaa-orange);
-  box-shadow: 0 0 10px var(--ncaa-orange-glow);
 }
 
 .game-play-btns {
@@ -580,7 +530,7 @@ button.btn-action {
   padding: 0.6rem 1.25rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: background 0.2s;
 }
 
 button.btn-action:hover:not(:disabled) {
@@ -593,7 +543,7 @@ button.btn-action:disabled {
 }
 
 button.btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
+  background: #f1f5f9;
   color: var(--text-main);
   border: 1px solid var(--border-color);
   font-family: var(--font-body);
@@ -606,7 +556,7 @@ button.btn-secondary {
 }
 
 button.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: #e2e8f0;
 }
 
 /* Challenge Outcome Display */
@@ -620,18 +570,19 @@ button.btn-secondary:hover {
 .challenge-outcome-box h4 {
   font-size: 1.3rem;
   margin-bottom: 0.4rem;
+  color: var(--ncaa-blue);
 }
 
 .box-cindy {
-  background: rgba(76, 175, 80, 0.06);
+  background: var(--color-cindy-glow);
   border: 1px solid rgba(76, 175, 80, 0.3);
-  color: #81c784;
+  color: var(--color-cindy);
 }
 
 .box-exit {
-  background: rgba(33, 150, 243, 0.06);
-  border: 1px solid rgba(33, 150, 243, 0.3);
-  color: #64b5f6;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  color: #0369a1;
 }
 
 .comparison-summary {
@@ -650,22 +601,22 @@ button.btn-secondary:hover {
 }
 
 .verdict-correct {
-  background: rgba(76, 175, 80, 0.12);
-  color: #4caf50;
-  border: 1px solid rgba(76, 175, 80, 0.2);
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
 }
 
 .verdict-wrong {
-  background: rgba(244, 67, 54, 0.12);
-  color: #f44336;
-  border: 1px solid rgba(244, 67, 54, 0.2);
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
 }
 
 /* Scoreboard */
 .challenge-score-card h3 {
   font-size: 1.3rem;
   margin-bottom: 0.2rem;
-  color: var(--accent-cyan);
+  color: var(--ncaa-blue);
 }
 
 .scoreboard-stats {
@@ -679,7 +630,7 @@ button.btn-secondary:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.015);
+  background: #f8fafc;
   border: 1px solid var(--border-color);
   padding: 0.8rem 1rem;
   border-radius: 6px;
@@ -687,17 +638,14 @@ button.btn-secondary:hover {
 
 .score-row span {
   font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .score-row strong {
   font-family: var(--font-display);
   font-size: 1.4rem;
   letter-spacing: 0.5px;
-}
-
-.glow-text {
   color: var(--ncaa-orange);
-  text-shadow: 0 0 10px rgba(255, 87, 34, 0.3);
 }
 
 /* Tables styling */
@@ -706,6 +654,7 @@ button.btn-secondary:hover {
   margin: 1.5rem 0;
   border: 1px solid var(--border-color);
   border-radius: 8px;
+  background: white;
 }
 
 table {
@@ -721,9 +670,9 @@ th, td {
 }
 
 th {
-  background: rgba(255, 255, 255, 0.03);
+  background: #f1f5f9;
   font-weight: 600;
-  color: var(--text-muted);
+  color: #475569;
   text-transform: uppercase;
   font-size: 0.75rem;
   letter-spacing: 1px;
@@ -738,8 +687,8 @@ tbody tr:last-child td {
 }
 
 .highlight-row td {
-  border-top: 1px solid rgba(255, 87, 34, 0.2);
-  border-bottom: 1px solid rgba(255, 87, 34, 0.2);
+  border-top: 1px solid rgba(255, 87, 34, 0.15);
+  border-bottom: 1px solid rgba(255, 87, 34, 0.15);
 }
 
 .highlight-note {
@@ -749,78 +698,107 @@ tbody tr:last-child td {
   border-radius: 0 8px 8px 0;
   font-size: 0.95rem;
   margin-bottom: 2rem;
+  color: #334155;
 }
 
-/* Plots Carousel */
-.plots-carousel {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
+/* Diagnostic report-like layout */
+.plots-report-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
   margin: 2rem 0;
 }
 
-.plot-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1.25rem;
+.report-plot-card {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.plot-card h5 {
-  font-size: 0.95rem;
-  margin-bottom: 0.75rem;
-  color: var(--accent-cyan);
+.report-plot-card:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.report-plot-card h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--ncaa-blue);
   align-self: flex-start;
+  border-left: 4px solid var(--ncaa-orange);
+  padding-left: 0.5rem;
+}
+
+.plot-wrapper {
+  width: 100%;
+  max-width: 700px;
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: center;
 }
 
 .diagnostic-img {
   width: 100%;
-  max-height: 250px;
+  height: auto;
+  max-height: 400px;
   object-fit: contain;
-  border-radius: 6px;
-  background: white;
-  padding: 0.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  padding: 0.5rem;
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-.plot-caption {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 0.75rem;
-  text-align: center;
+.plot-explanation {
+  font-size: 0.95rem;
+  color: #334155;
+  line-height: 1.6;
+  text-align: justify;
+  max-width: 800px;
+  width: 100%;
+  background: #f8fafc;
+  padding: 1.25rem;
+  border-radius: 6px;
+  border-left: 3px solid var(--ncaa-blue);
+}
+
+.plot-explanation strong {
+  color: var(--ncaa-orange);
 }
 
 /* PCA loadings and variables colors */
 .pos-val {
-  color: #81c784;
+  color: #2e7d32;
+  font-weight: 500;
 }
 
 .neg-val {
-  color: #e57373;
+  color: #c62828;
+  font-weight: 500;
 }
 
 .text-correct {
-  color: #81c784;
+  color: #2e7d32;
 }
 
 .text-wrong {
-  color: #e57373;
+  color: #c62828;
 }
 
 /* Case studies grid */
 .case-studies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
 
 .case-study-btn {
-  background: rgba(255, 255, 255, 0.02);
+  background: #ffffff;
   border: 1px solid var(--border-color);
   padding: 0.8rem 1.2rem;
   border-radius: 6px;
@@ -832,59 +810,24 @@ tbody tr:last-child td {
   justify-content: space-between;
   align-items: center;
   text-align: left;
-  transition: background 0.2s, border-color 0.2s;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
 .case-study-btn:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: var(--text-muted);
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
 }
 
 .section-subtitle {
-  font-size: 1.1rem;
-  color: var(--text-main);
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Admin Reproducibility area */
-.admin-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-}
-
-@media (max-width: 768px) {
-  .admin-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.admin-grid h4 {
-  font-size: 1.05rem;
-  color: var(--accent-cyan);
+  font-size: 1.2rem;
+  color: var(--ncaa-blue);
+  margin-top: 2.5rem;
   margin-bottom: 0.75rem;
-}
-
-pre {
-  background: #020408;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 1rem;
-  border-radius: 6px;
-  overflow-x: auto;
-  font-size: 0.85rem;
-  margin-bottom: 1rem;
-  color: #38bdf8;
-}
-
-ol {
-  padding-left: 1.25rem;
-  font-size: 0.9rem;
-  color: #cbd5e1;
-}
-
-ol li {
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.4rem;
 }
 
 /* Footer style */

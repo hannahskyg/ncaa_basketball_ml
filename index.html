@@ -17,26 +17,9 @@
   <!-- Premium Header -->
   <header class="app-header">
     <div class="header-container">
-      <div class="header-logo-group">
-        <div class="hoop-art">🏀</div>
-        <div>
-          <h1>NCAA March Madness</h1>
-          <h2>Cinderella Anomaly Detection Classifier</h2>
-        </div>
-      </div>
-      <div class="meta-badge-grid">
-        <div class="meta-badge">
-          <span class="meta-label">Course</span>
-          <span class="meta-val">UCSD DSC 148</span>
-        </div>
-        <div class="meta-badge">
-          <span class="meta-label">Instructor</span>
-          <span class="meta-val">Prof. Jingbo Shang</span>
-        </div>
-        <div class="meta-badge">
-          <span class="meta-label">By</span>
-          <span class="meta-val">Chan & Gonzalez</span>
-        </div>
+      <div>
+        <h1>NCAA March Madness Cinderella Anomaly Detection</h1>
+        <p class="authors-line">By Janie Chan & Hannah Gonzalez</p>
       </div>
     </div>
   </header>
@@ -56,10 +39,10 @@
     <!-- Interactive Workspace Tabs -->
     <div class="workspace-tabs-wrapper">
       <button class="tab-btn active" id="tab-sandbox">
-        <span class="tab-icon">⚙️</span> Interactive Sandbox
+        Interactive Sandbox
       </button>
       <button class="tab-btn" id="tab-challenge">
-        <span class="tab-icon">🎮</span> Challenge Game: Beat the Model
+        Challenge Game: Beat the Model
       </button>
     </div>
 
@@ -135,7 +118,7 @@
             <p>Below are the actual regular season metrics of a real tournament team (Seed 11–16) drawn from the 2022–2026 test years. Make your guess, check the models, and reveal the truth!</p>
           </div>
           
-          <div class="mystery-box-badge">❓ Mystery Team Case</div>
+          <div class="mystery-box-badge">Mystery Team Case</div>
           
           <div id="challenge-stats-grid" class="challenge-stats-grid">
             <!-- Dynamically populated -->
@@ -186,19 +169,19 @@
           <p>Accuracy on held-out test data (2022–2026)</p>
           <div class="scoreboard-stats">
             <div class="score-row">
-              <span>👤 Your Score:</span>
+              <span>Your Score:</span>
               <strong id="score-user" class="glow-text">0/0</strong>
             </div>
             <div class="score-row">
-              <span>🌲 Random Forest (Tuned):</span>
+              <span>Random Forest (Tuned):</span>
               <strong id="score-rf">0/0</strong>
             </div>
             <div class="score-row">
-              <span>⚡ Gradient Boosting:</span>
+              <span>Gradient Boosting:</span>
               <strong id="score-gbm">0/0</strong>
             </div>
             <div class="score-row">
-              <span>📊 KenPom Baseline:</span>
+              <span>KenPom Baseline:</span>
               <strong id="score-baseline">0/0</strong>
             </div>
           </div>
@@ -241,7 +224,7 @@
               <td>0.597</td>
             </tr>
             <tr class="highlight-row">
-              <td><strong>PCA + Logistic Regression</strong> ⭐</td>
+              <td><strong>PCA + Logistic Regression</strong></td>
               <td><strong>0.2500</strong></td>
               <td><strong>0.1562</strong></td>
               <td><strong>0.6250</strong></td>
@@ -266,26 +249,40 @@
       </div>
 
       <div class="highlight-note">
-        ⭐ The <strong>PCA + Logistic Regression</strong> model achieves the highest F1-score of <strong>0.2500</strong> on the test set, representing a <strong>+187.3% relative improvement</strong> over the KenPom baseline (F1 = 0.0870). It successfully flags 5 out of the 8 historical Cinderella runs (62.5% recall) while maintaining much better precision and keeping false positives low.
+        The <strong>PCA + Logistic Regression</strong> model achieves the highest F1-score of <strong>0.2500</strong> on the test set, representing a <strong>+187.3% relative improvement</strong> over the KenPom baseline (F1 = 0.0870). It successfully flags 5 out of the 8 historical Cinderella runs (62.5% recall) while maintaining much better precision and keeping false positives low.
       </div>
 
-      <!-- Diagnostic Charts Grid -->
+      <!-- Diagnostic Visualizations -->
       <h4 class="section-subtitle">Diagnostic Visualizations</h4>
-      <div class="plots-carousel">
-        <div class="plot-card">
-          <h5>1. Decision Threshold Sensitivity</h5>
-          <img src="threshold_sensitivity.png" alt="Decision Threshold Sensitivity Plot" class="diagnostic-img">
-          <p class="plot-caption">Sweeping probability threshold on Out-Of-Fold (OOF) training data to maximize F1-score without test set leakage. Optimal threshold found at 0.356.</p>
+      <div class="plots-report-layout">
+        <div class="report-plot-card">
+          <h5>1. Decision Threshold Sensitivity (Random Forest)</h5>
+          <div class="plot-wrapper">
+            <img src="threshold_sensitivity.png" alt="Decision Threshold Sensitivity Plot" class="diagnostic-img">
+          </div>
+          <p class="plot-explanation">
+            This sensitivity analysis sweeps the probability threshold from 0.01 to 0.99 using Out-Of-Fold (OOF) training data. By isolating predictions on training folds, we optimize the decision threshold without leaking test set statistics. The optimal threshold is selected at <strong>0.356</strong> (indicated by the red line), representing the point that maximizes the F1-score. The curve demonstrates the trade-off: higher thresholds yield higher precision at the expense of recall, whereas lower thresholds capture more Cinderellas but introduce false positives.
+          </p>
         </div>
-        <div class="plot-card">
-          <h5>2. Parameter Sensitivity (Max Depth)</h5>
-          <img src="parameter_sensitivity_depth.png" alt="Parameter Sensitivity Plot" class="diagnostic-img">
-          <p class="plot-caption">Evaluating Grouped CV F1 vs. Test F1 across tree depths. Peak performance at max depth = 3 restricts tree capacity, preventing SMOTE overfitting.</p>
+
+        <div class="report-plot-card">
+          <h5>2. Parameter Sensitivity: F1 vs Random Forest Max Depth</h5>
+          <div class="plot-wrapper">
+            <img src="parameter_sensitivity_depth.png" alt="Parameter Sensitivity Plot" class="diagnostic-img">
+          </div>
+          <p class="plot-explanation">
+            To address the hyperparameter sensitivity of our models, we sweep tree depth from 2 to 10. The Grouped CV F1 peaks at a depth of 3. Restricting tree capacity functions as an effective regularizer, preventing the Random Forest from over-fitting to the synthetic minority samples generated by SMOTE.
+          </p>
         </div>
-        <div class="plot-card">
-          <h5>3. Test Set Confusion Matrix</h5>
-          <img src="confusion_matrix_final_model.png" alt="Confusion Matrix Plot" class="diagnostic-img">
-          <p class="plot-caption">Confusion matrix on 2022–2026 test years. Out of 138 low-seeded seasons, the model correctly isolates 5 of the 8 extremely rare Cinderella runs.</p>
+
+        <div class="report-plot-card">
+          <h5>3. Test Set Confusion Matrix (Tuned Random Forest)</h5>
+          <div class="plot-wrapper">
+            <img src="confusion_matrix_final_model.png" alt="Confusion Matrix Plot" class="diagnostic-img">
+          </div>
+          <p class="plot-explanation">
+            The confusion matrix evaluates model predictions on the held-out test years (2022–2026). Out of 138 low-seeded team-seasons, the model correctly isolates 5 of the 8 extremely rare Cinderella runs (62.5% recall), yielding a test F1-score of 0.1786. The majority of errors are false positives (exits predicted as Cinderellas), which is typical in rare-event classification due to class imbalance.
+          </p>
         </div>
       </div>
 
@@ -315,33 +312,6 @@
       <p>Click a team to load its actual regular-season metrics into the Sandbox Adjuster above and examine what made them anomalies:</p>
       <div id="case-studies-list" class="case-studies-grid">
         <!-- Dynamically populated -->
-      </div>
-    </section>
-
-    <!-- Reproducibility & Deployment guide -->
-    <section class="card glass-panel admin-section" id="admin">
-      <h3>Reproducibility & Deployment Instructions</h3>
-      <div class="admin-grid">
-        <div>
-          <h4>1. How to Reproduce Locally</h4>
-          <p>To train the models and regenerate all figures/weights, execute the following commands in the project directory:</p>
-          <pre><code># Install dependencies
-pip install -r requirements.txt
-
-# Run unified training pipeline
-python train_models_all.py</code></pre>
-          <p>This will update the javascript weights file (<code>model-data.js</code>) and recreate the sensitivity plots.</p>
-        </div>
-        <div>
-          <h4>2. How to Deploy to Vercel</h4>
-          <p>This application is 100% serverless and static. To deploy it to Vercel:</p>
-          <ol>
-            <li>Commit all files (including <code>model-data.js</code> and png plots) to a GitHub repository.</li>
-            <li>Go to <a href="https://vercel.com" target="_blank">Vercel</a>, click "Add New Project", and select your repo.</li>
-            <li>Leave all build settings at their defaults and click <strong>Deploy</strong>.</li>
-            <li>Done! Vercel will serve it as a lightning-fast static site.</li>
-          </ol>
-        </div>
       </div>
     </section>
   </main>
